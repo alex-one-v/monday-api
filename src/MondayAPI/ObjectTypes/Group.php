@@ -11,7 +11,12 @@ class Group extends ObjectModel
 		static $arguments = array();
 
 		// Fields
-		static $fields = array();
+		static $fields = array(
+		
+        'id'             => [ 'type' => '!ID',    ],
+        'title'          => [ 'type' => '!String',   ],
+		
+		);
 }
 
 ?>

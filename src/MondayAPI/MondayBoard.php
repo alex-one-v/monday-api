@@ -6,6 +6,7 @@ use TBlack\MondayAPI\Querying\Query;
 use TBlack\MondayAPI\ObjectTypes\Item;
 use TBlack\MondayAPI\ObjectTypes\SubItem;
 use TBlack\MondayAPI\ObjectTypes\Board;
+use TBlack\MondayAPI\ObjectTypes\Group;
 use TBlack\MondayAPI\ObjectTypes\Column;
 use TBlack\MondayAPI\ObjectTypes\BoardKind;
 
@@ -89,6 +90,26 @@ class MondayBoard extends MondayAPI
             $Board->getFields($fields)
         );
 
+        return $this->request( self::TYPE_QUERY, $boards );
+    }
+
+    public function getGroups()
+    {
+        $Group = new Group();
+        $Board = new Board();
+
+        $groups = Query::create(
+            Group::$scope,
+            '',
+            $Group->getFields()
+        );
+		
+        $boards = Query::create(
+            Board::$scope,
+            $Board->getArguments(['ids'=>$this->board_id]),
+            [$groups]
+        );
+		
         return $this->request( self::TYPE_QUERY, $boards );
     }
 
